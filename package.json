@@ -1,0 +1,38 @@
+{
+	"name": "karan-async-await-performance",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+		"dev:frontend": "vite",
+		"dev:backend": "cd server && npm run dev",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@hono/node-server": "^1.13.5",
+		"axios": "^1.7.7",
+		"hono": "^4.6.9",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"tsx": "^4.19.2"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.13.0",
+		"@types/react": "^18.3.12",
+		"@types/react-dom": "^18.3.1",
+		"@vitejs/plugin-react": "^4.3.3",
+		"autoprefixer": "^10.4.20",
+		"concurrently": "^9.0.1",
+		"eslint": "^9.13.0",
+		"eslint-plugin-react-hooks": "^5.0.0",
+		"eslint-plugin-react-refresh": "^0.4.14",
+		"globals": "^15.11.0",
+		"postcss": "^8.4.47",
+		"tailwindcss": "^3.4.14",
+		"typescript": "~5.6.2",
+		"typescript-eslint": "^8.11.0",
+		"vite": "^5.4.10"
+	}
+}
