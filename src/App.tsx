@@ -1,7 +1,8 @@
+// src/App.tsx
 import axios from "axios";
 import { useState } from "react";
 
-const TOTAL_REQUESTS = 10;
+const TOTAL_REQUESTS = 50;
 
 function App() {
 	const [syncProgress, setSyncProgress] = useState(0);
@@ -63,7 +64,7 @@ function App() {
 			<div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-8">
 				<button
 					onClick={handleSync}
-					disabled={isSyncLoading}
+					disabled={isSyncLoading || isAsyncLoading}
 					type="button"
 					className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded disabled:opacity-50"
 				>
@@ -71,7 +72,7 @@ function App() {
 				</button>
 				<button
 					onClick={handleAsync}
-					disabled={isAsyncLoading}
+					disabled={isAsyncLoading || isSyncLoading}
 					type="button"
 					className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded disabled:opacity-50"
 				>
@@ -82,11 +83,16 @@ function App() {
 				{/* Synchronous Card */}
 				<div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow">
 					<h2 className="text-xl font-semibold mb-4">Synchronous Requests</h2>
-					<div className="w-full bg-gray-300 dark:bg-gray-700 h-6 rounded mb-4">
+					<div className="relative w-full bg-gray-300 dark:bg-gray-700 h-6 rounded mb-4">
 						<div
 							className="bg-blue-500 h-6 rounded"
 							style={{ width: `${syncProgress}%` }}
 						/>
+						<div className="absolute inset-0 flex justify-center items-center">
+							<span className="text-black dark:text-white font-semibold">
+								{Math.round(syncProgress)}%
+							</span>
+						</div>
 					</div>
 					{isSyncLoading && (
 						<div className="flex items-center">
@@ -94,7 +100,7 @@ function App() {
 								className="animate-spin h-5 w-5 mr-3 text-blue-500"
 								viewBox="0 0 24 24"
 								role="img"
-								aria-label="img"
+								aria-label="Loading"
 							>
 								<circle
 									className="opacity-25"
@@ -122,11 +128,16 @@ function App() {
 				{/* Asynchronous Card */}
 				<div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow">
 					<h2 className="text-xl font-semibold mb-4">Asynchronous Requests</h2>
-					<div className="w-full bg-gray-300 dark:bg-gray-700 h-6 rounded mb-4">
+					<div className="relative w-full bg-gray-300 dark:bg-gray-700 h-6 rounded mb-4">
 						<div
 							className="bg-green-500 h-6 rounded"
 							style={{ width: `${asyncProgress}%` }}
 						/>
+						<div className="absolute inset-0 flex justify-center items-center">
+							<span className="text-black dark:text-white font-semibold">
+								{Math.round(asyncProgress)}%
+							</span>
+						</div>
 					</div>
 					{isAsyncLoading && (
 						<div className="flex items-center">
@@ -134,7 +145,7 @@ function App() {
 								className="animate-spin h-5 w-5 mr-3 text-green-500"
 								viewBox="0 0 24 24"
 								role="img"
-								aria-label="img"
+								aria-label="Loading"
 							>
 								<circle
 									className="opacity-25"
@@ -160,6 +171,14 @@ function App() {
 					)}
 				</div>
 			</div>
+			{syncTime !== null && asyncTime !== null && (
+				<div className="mt-8 text-center">
+					<p className="text-lg font-semibold">
+						Performance difference:{" "}
+						<strong>{Math.abs(syncTime - asyncTime).toFixed(2)} ms</strong>
+					</p>
+				</div>
+			)}
 		</div>
 	);
 }
