@@ -1,6 +1,14 @@
-# Async await document
+# 1. Async await document
 
-## Application flow
+- [1. Async await document](#1-async-await-document)
+  - [1.1. Application flow](#11-application-flow)
+  - [1.2. How it works](#12-how-it-works)
+    - [1.2.1. Synchronous case](#121-synchronous-case)
+    - [1.2.2. Asynchronous case](#122-asynchronous-case)
+  - [1.3. Await](#13-await)
+  - [1.4. Performance](#14-performance)
+
+## 1.1. Application flow
 
 ```mermaid
 sequenceDiagram
@@ -25,9 +33,9 @@ sequenceDiagram
     Frontend->>User: Display Time Taken
 ```
 
-## How it works
+## 1.2. How it works
 
-### Synchronous case
+### 1.2.1. Synchronous case
 
 Use await to wait for each request to complete, then execute the next request in turn.
 
@@ -51,7 +59,7 @@ sequenceDiagram
     Frontend->>Frontend: All Requests Completed
 ```
 
-### Asynchronous case
+### 1.2.2. Asynchronous case
 
 Multiple requests are stored in an array of Promise and executed and waited for simultaneously with Promise.all().
 
@@ -83,7 +91,7 @@ sequenceDiagram
     Frontend->>Frontend: All Requests Completed
 ```
 
-## Await
+## 1.3. Await
 
 Once the Promise is fulfilled, execution resumes with the resolved value.
 If the Promise is rejected, an exception is thrown.
@@ -111,7 +119,7 @@ sequenceDiagram
     AsyncFunction->>AsyncFunction: Resumes execution with result
 ```
 
-## Performance
+## 1.4. Performance
 
 ```mermaid
 flowchart TB
